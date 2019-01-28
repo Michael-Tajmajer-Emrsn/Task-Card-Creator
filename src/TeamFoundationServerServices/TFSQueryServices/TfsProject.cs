@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using Microsoft.TeamFoundation.Common;
 using Microsoft.TeamFoundation.Server;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
 using ReportInterface;
@@ -55,7 +56,26 @@ namespace TFSQueryServices
             ri.ParentId = relatedLink.RelatedWorkItemId.ToString();
             break;
           }
-          foreach (Field f in w.Fields)
+
+			foreach (var relatedLink in w.Links.OfType<RelatedLink>().Where(relatedLink => relatedLink.LinkTypeEnd.Name == "Predecessor"))
+	        {
+		        if (!ri.PredecessorIds.IsNullOrEmpty())
+		        {
+			        ri.PredecessorIds += ", ";
+		        }
+		        ri.PredecessorIds = ri.PredecessorIds + relatedLink.RelatedWorkItemId.ToString();
+	        }
+
+	        foreach (var relatedLink in w.Links.OfType<RelatedLink>().Where(relatedLink => relatedLink.LinkTypeEnd.Name == "Successor"))
+	        {
+		        if (!ri.SuccessorIds.IsNullOrEmpty())
+		        {
+			        ri.SuccessorIds += ", ";
+		        }
+				ri.SuccessorIds = ri.SuccessorIds + relatedLink.RelatedWorkItemId.ToString();
+	        }
+
+		  foreach (Field f in w.Fields)
           {
             if (f.Value is string)
             {

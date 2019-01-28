@@ -14,10 +14,12 @@ namespace ReportInterface
     }
     public string Id { get; set; }
     public string ParentId { get; set; }
-    public string Title { get; set; }
+	public string PredecessorIds { get; set; }
+	public string SuccessorIds { get; set; }
+	public string Title { get; set; }
     public string Type { get; set; }
     public string State { get; set; }
     public string Description { get; set; }
-    public Dictionary<string, object> Fields { get; set; } 
+    public Dictionary<string, object> Fields { get; set; }
   }
 }

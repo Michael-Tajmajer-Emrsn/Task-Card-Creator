@@ -143,7 +143,9 @@ namespace UserDefinedReport
                             {"Type", workItem.Type},
                             {"State", workItem.State},
                             {"Description", workItem.Description},
-                        };
+	                        {"SuccessorIds", workItem.SuccessorIds},
+	                        {"PredecessorIds", workItem.PredecessorIds},
+						};
 
                         foreach (var fieldMapping in mainFieldsMapping)
                         {
@@ -241,7 +243,7 @@ namespace UserDefinedReport
         }
 
         /// <summary>
-        /// This class becomes the data context for every page. It gives the page 
+        /// This class becomes the data context for every page. It gives the page
         /// access to the page number.
         /// </summary>
         private class PageInfo
